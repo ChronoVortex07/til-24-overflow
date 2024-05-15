@@ -17,12 +17,12 @@ TEAM_TRACK = os.getenv("TEAM_TRACK")
 
 def main():
     # input_dir = Path(f"/home/jupyter/{TEAM_TRACK}")
-    input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    # input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    input_dir = Path("data")
     # results_dir = Path(f"/home/jupyter/{TEAM_NAME}")
     results_dir = Path("results")
     results_dir.mkdir(parents=True, exist_ok=True)
     instances = []
-
     with open(input_dir / "asr.jsonl", "r") as f:
         for line in f:
             if line.strip() == "":
@@ -32,7 +32,7 @@ def main():
                 audio_bytes = file.read()
                 instances.append(
                     {**instance, "b64": base64.b64encode(audio_bytes).decode("ascii")}
-                )
+                )        
 
     results = run_batched(instances)
     df = pd.DataFrame(results)
@@ -53,7 +53,7 @@ def run_batched(
     for index in tqdm(range(0, len(instances), batch_size)):
         _instances = instances[index : index + batch_size]
         response = requests.post(
-            "http://localhost:5001/stt",
+            "http://localhost:8000/stt",
             data=json.dumps(
                 {
                     "instances": [
