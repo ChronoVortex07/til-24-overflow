@@ -6,7 +6,7 @@ from VLMManager import VLMManager
 
 app = FastAPI()
 
-vlm_manager = VLMManager()
+vlm_manager = VLMManager(verbose=1)
 
 
 @app.get("/health")
@@ -30,4 +30,10 @@ async def identify(instance: Request):
         bbox = vlm_manager.identify(image_bytes, instance["caption"])
         predictions.append(bbox)
 
+    if vlm_manager.verbose:
+        print(f"Exact Match Count: {vlm_manager.exact_match_count}")
+        print(f"Inferior Match Count: {vlm_manager.inferior_match_count}")
+        print(f"No Match Count: {vlm_manager.no_match_count}")
+        print(f"No Initial Match Count: {vlm_manager.no_initial_match_count}")
+        
     return {"predictions": predictions}

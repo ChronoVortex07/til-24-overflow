@@ -17,7 +17,8 @@ TEAM_TRACK = os.getenv("TEAM_TRACK")
 
 def main():
     # input_dir = Path(f"/home/jupyter/{TEAM_TRACK}")
-    input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    # input_dir = Path(f"../../data/{TEAM_TRACK}/train")
+    input_dir = Path("data")
     # results_dir = Path(f"/home/jupyter/{TEAM_NAME}")
     results_dir = Path("results")
 
@@ -49,7 +50,10 @@ def main():
                         }
                     )
                     counter += 1
-
+            
+            # if counter > 100:
+            #     break
+ 
     assert len(truths) == len(instances)
     results = run_batched(instances)
     df = pd.DataFrame(results)
@@ -71,7 +75,7 @@ def run_batched(
     for index in tqdm(range(0, len(instances), batch_size)):
         _instances = instances[index : index + batch_size]
         response = requests.post(
-            "http://localhost:5004/identify",
+            "http://localhost:8000/identify",
             data=json.dumps(
                 {
                     "instances": [
