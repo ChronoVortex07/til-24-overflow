@@ -13,8 +13,7 @@ nltk.download('averaged_perceptron_tagger')
 
 class VLMManager:
     def __init__(self) -> None:
-        # best.pt is zedong's best
-        # best_shuce.pt is shuce's best but not used
+        #best one is epoch45.pt as of now idk why 
         self.model = YOLOWorld("best.pt", verbose=False).to('cuda:0')
         
         self.stopwords = set(nltk.corpus.stopwords.words('english')) - {'and'}
