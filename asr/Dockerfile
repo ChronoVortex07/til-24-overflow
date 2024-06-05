@@ -20,6 +20,10 @@ WORKDIR /workspace
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+COPY models models
+COPY save_cache.py save_cache.py
+RUN python3 save_cache.py
+
 # copy the rest of the files into the container
 COPY src .
 

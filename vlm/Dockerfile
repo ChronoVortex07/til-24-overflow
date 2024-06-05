@@ -22,6 +22,11 @@ RUN pip install -r requirements.txt
 
 # copy the rest of the files into the container
 COPY src .
+ 
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
+RUN pip install dill==0.3.8 git+https://github.com/ultralytics/CLIP.git
 
+COPY save_cache.py save_cache.py
+RUN python3 save_cache.py
 # start model service
 CMD uvicorn api_service:app --port 5004 --host 0.0.0.0

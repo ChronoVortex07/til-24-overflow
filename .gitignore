@@ -1,14 +1,24 @@
 data
-models/
-data
 data_processor.ipynb
 produce_datasets.ipynb
 train_model.ipynb
 model_test
-hf_datasets
+nlp_datasets
+nlp_training
 asr_training
 asr_training_small
 .vector_cache
+asr_copy
+nlp_copy
+vlm_copy
+yolo
+test_nlp.py
+train_vlm.ipynb
+results 
+scoring
+asr_and_nlp_api_service.py
+test_asr_and_nlp.py
+vlm_captioning_*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
